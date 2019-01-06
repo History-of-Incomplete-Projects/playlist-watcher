@@ -1,0 +1,11 @@
+{
+    "playlists": [
+        {
+            "playlist": {
+                "url": "https://www.youtube.com/playlist?list=PLt4pGsqq6GTNXZiIDOtBVYOZ6LCHu5veR",
+                "name": "mymusicplaylist"
+            },
+            "include_video": false
+        }
+    ]
+}
