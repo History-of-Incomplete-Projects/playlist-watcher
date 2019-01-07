@@ -7,6 +7,7 @@ class Playlist(object):
         self.url = url
         self.name = name
         self.include_video = include_video
+        self.downloaded = []
 
     def get_videos(self, runner):
         self.playlist = runner.extract_info(self.url, download=False)
