@@ -1,11 +1,14 @@
-
 import json
 from io import open
+from error import MissingLogbookError
 
 class Logging(object):
     def __init__(self):
         self.logbook_name = "logbook.json"
-        self.logbook = {}
+        self.logbook = {
+            "playlists": [
+            ]
+        }
 
     def log_video(self, playlist, video):
         self.read_from_logbook()
@@ -21,7 +24,10 @@ class Logging(object):
         self.write_to_logbook()
 
     def load_logbook(self, playlist):
-        self.read_from_logbook()
+        try:
+            self.read_from_logbook()
+        except MissingLogbookError:
+            self.write_to_logbook()
         for playlist_logged in self.logbook["playlists"]:
             if playlist.url == playlist_logged["url"]:
                 logged_videos = playlist_logged["downloaded_videos"]
@@ -46,6 +52,9 @@ class Logging(object):
             f.write(json.dumps(self.logbook, f, ensure_ascii=False, indent=4, sort_keys=True))
     
     def read_from_logbook(self):
-        with open("logbook.json", encoding='utf-8') as f:
-            self.logbook = json.load(f)
+        try:
+            with open("logbook.json", encoding='utf-8') as f:
+                self.logbook = json.load(f)
+        except (OSError, IOError) as e:
+            raise MissingLogbookError
 
