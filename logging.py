@@ -28,6 +28,8 @@ class Logging(object):
             self.read_from_logbook()
         except MissingLogbookError:
             self.write_to_logbook()
+        finally:
+            self.read_from_logbook()
         for playlist_logged in self.logbook["playlists"]:
             if playlist.url == playlist_logged["url"]:
                 logged_videos = playlist_logged["downloaded_videos"]
