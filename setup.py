@@ -8,7 +8,7 @@ setup(
     url="https://github.com/independent-projects/playlist-watcher.git",
     author="JingMing Huang",
     author_email="ahuang.jm@outlook.com",
-    packages=["watcher"],
+    packages=["playlist_watcher"],
     install_requires=[],
     zip_safe=False,
 )
