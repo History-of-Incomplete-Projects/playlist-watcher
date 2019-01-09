@@ -7,15 +7,16 @@ import json
 from error import ExpectedInputPlaylistFileNotFoundError
 
 class Runner(object):
-    def __init__(self, youtube_dl_options, playlists_name, logbook_name):
+    def __init__(self, youtube_dl_options, playlists_name, logbook_name, period=60):
         self.runner = youtube_dl.YoutubeDL(youtube_dl_options)
         self.playlists_name = playlists_name
         self.logger = Logging(logbook_name)
+        self.period = period
 
-    def run(self, period=0):
+    def run(self):
         s = scheduler(time, sleep)
-        s.enter(period, 2, self.get_playlists, ())
-        s.enter(period, 1, self.download_playlists, ())
+        s.enter(self.period, 2, self.get_playlists, ())
+        s.enter(self.period, 1, self.download_playlists, ())
         while True:
             s.run()
 
